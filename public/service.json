@@ -1,0 +1,44 @@
+[
+    {
+        "id":1,
+        "name":"Air Ticket Booking",
+        "price":500,
+        "img":"https://i.ibb.co/WkpbHgy/istockphoto-155380716-612x612.jpg",
+        "description":"If you want to travel abroad then the first thing you worry about is the flight ticket because most of the time you are separated from the airport and we only confirm the flight ticket for you. We provide this service through vision and honesty. You can confirm flight tickets from home by contacting us"
+    },
+    {
+        "id":2,
+        "name":"Govt or non-Govt Job Circular Apply",
+        "price":200,
+        "img":"https://i.ibb.co/6WdXtnK/pexels-photo-1181401.jpg" ,
+        "description":"we are Provide a good team work and all jon news we prefer to all and good service, we are low cost provide Job circular apply ,this is so very small cost in all service all of there, if our service provide per week and per hours 24 hours duty we provide for you,We honestly provided all service here,if you believe us i promised you ,you got a god service one of the most of others"
+    },
+    {
+        "id":3,
+        "name":"Birth Certificate Apply",
+        "price":200,
+        "img":"https://i.ibb.co/896k0Kv/pexels-photo-2399097.jpg"  ,
+        "description":"We provide birth registration services for small children, by doing this you can apply for the birth registration of your baby from home without any hassle, it will save your time as well as your fatigue and you can easily register your baby at home. We hope that we will be able to fulfill your wishes, and we provide this service for very little money. "
+    },
+    {
+        "id":4,
+        "name":"National ID Card Apply",
+        "price":200,
+        "img":"https://i.ibb.co/8Mv7hKv/pexels-photo-6651190.jpg"  ,
+        "description":"We register the national identity card of the Bangladesh government, so you don't need to run anywhere, you can get this service near us for a very small fee. Through this, your valuable time will be saved and you will be free from worry because all the achievements of your identity card are ours, we provide service very honestly."
+    },
+    {
+        "id":5,
+        "name":"Army Job Apply",
+        "price":150,
+        "img":"https://i.ibb.co/4Pg7Vyh/pexels-photo-280002.jpg"  ,
+        "description":"we are provide Army job apply ,this is so very big opportunity's too all.We Provide this service only few cost this course meter our internet bill and work time,minium only 150taka we provided this opportunity "
+    },
+    {
+        "id":6,
+        "name":"Passport and Visa confirm",
+        "price":500,
+        "img":"https://i.ibb.co/82d5bDY/pexels-photo-842961.jpg"  ,
+        "description":"We are carefully handle make a passport for foreigner and make visa honestly ,there is no doubt from us, We Provided original visa and passport ,If you going to foreign so can you nearest us nd make a passport and visa from home,"
+    },
+]
