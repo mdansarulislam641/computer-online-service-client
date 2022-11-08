@@ -32,7 +32,7 @@ const Banner = () => {
         },
     ]
     return (
-       
+        
         <div className="carousel w-full h-[80vh]">
           
             {
