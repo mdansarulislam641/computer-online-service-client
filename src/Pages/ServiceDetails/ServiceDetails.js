@@ -27,7 +27,7 @@ const ServiceDetails = () => {
                 <h3 className='text-2xl font-bold'>Service Fee: {price}</h3>
                 <p className='text-xl py-4'>{description}</p>
                 <div>
-                    <Link>
+                    <Link to='/review'>
                         <button className='btn btn-primary'>Review This Service</button>
                     </Link>
                 </div>

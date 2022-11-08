@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 import app from '../../firebase/firebase.config';
-import {createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut} from 'firebase/auth';
+import {createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile} from 'firebase/auth';
 export const AuthContext = createContext()
 const AuthProvider = ({children}) => {
 
@@ -24,6 +24,11 @@ const AuthProvider = ({children}) => {
         return signOut(auth)
     }
 
+    // update user Profile image and name
+    const UpdateUserProfile = (profile)=>{
+        return updateProfile(auth.currentUser,profile)
+    }
+
     // user observer
   useEffect(()=>{
     const unSubsCribe =  onAuthStateChanged(auth, currentUser=>{
@@ -34,7 +39,7 @@ const AuthProvider = ({children}) => {
   },[])
 
     const authInfo = {
-        user,loading,userRegister,logInUser,signOutUser
+        user,loading,userRegister,logInUser,signOutUser,UpdateUserProfile
     }
 
     return (

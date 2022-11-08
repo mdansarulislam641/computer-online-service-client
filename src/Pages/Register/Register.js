@@ -1,58 +1,143 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import toast from 'react-hot-toast';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 
 const Register = () => {
-    const {userRegister} = useContext(AuthContext)
+    const {loading,userRegister,UpdateUserProfile} = useContext(AuthContext)
+    const [userInfo , setUserInfo] = useState({
+        name:"",
+        pictureURL:"",
+        email:"",
+        password:""
+    })
+    const [userError, setUserError] = useState({
+        name:"",
+        pictureURL:"",
+        email:"",
+        password:""
+    });
+    const navigate = useNavigate()
+    if(loading){
+        return <div>Loading.........</div>
+    }
     const handleRegister = event =>{
         event.preventDefault()
-        const form = event.target ;
-        const name = form.name.value ;
-        const email = form.email.value ;
-        const password = form.password.value ;
-        handleUserRegister(email, password)
-        
-    }
-
-    const handleUserRegister = (email, password)=>{
-        userRegister(email,password)
+        userRegister(userInfo.email,userInfo.password)
         .then(result=>{
-            console.log(result)
+            toast.success("added user name and picture")
+            updateProfile(userInfo.name, userInfo.pictureURL)
+            navigate('/');
         })
         .catch(error=>{
-            console.log(error)
+            toast.error(error.message)
         })
     }
+const handleUserName =(e)=>{
+    const name =e.target.value;
+    if(!name){
+        setUserError({...userError,name:'Please Fill Up name'})
+        setUserInfo({...userInfo,name:""})
+    }
+  else{
+    setUserInfo({...userInfo,name})
+    setUserError({...userError,name:''})
+  }
+}
+const handleUserImage =(e)=>{
+    const pictureURL = e.target.value;
+    if(!pictureURL){
+        setUserError({...userError,pictureURL:"Please Fill this image filed"})
+        setUserInfo({...userInfo,pictureURL:""})
+    }
+    else{
+        setUserInfo({...userInfo,pictureURL})
+        setUserError({...userError,pictureURL:""})
+    }
+  
+}
+console.log(userInfo.pictureURL)
+const handleUserEmail =(e)=>{
+    const email = e.target.value;
+    if(!/\S+@\S+\.\S+/.test(email)){
+        setUserError({...userError, email:"Your email is not Correct"})
+        setUserInfo({...userInfo, email:''})
+    }
+    else{
+        setUserInfo({...userInfo,email})
+        setUserError({...userError,email:''})
+    }
+  
+}
+const handleUserPassword =(e)=>{
+    const password = e.target.value ;
+    if(!/(?=.*[A-Z])/.test(password)){
+        setUserError({...userError,password:"must be one capital letter"})
+        setUserInfo({...userInfo,password:password })
+    }
+    else if(!/(?=.*[0-9])/.test(password)){
+        setUserError({...userError,password:"must be one number"})
+        setUserInfo({...userInfo,password:password })
+    }
+    else if(!/(?=.*[@#$%^&+-])/.test(password)){
+        setUserError({...userError,password:"must be one spacial character"})
+        setUserInfo({...userInfo,password:password })
+    }
+    else if(password.length < 6){
+        setUserError({...userError,password:"password must be 6 character"})
+        setUserInfo({...userInfo,password:password })
+    }
+    else{
+        setUserInfo({...userInfo, password:password})
+        setUserError({...userError,password:""})
+    }
+}
+  
+
+const updateProfile = (name,photo) =>{
+    const profile = {displayName:name,photoURL:photo}
+    UpdateUserProfile(profile)
+    .then(()=>{
+        toast.success("added user name and picture")
+    })
+    .catch((e)=>{
+        toast.error(e.message)
+    })
+}
+
 
     return (
        
-<div class="mx-auto my-10 p-4 w-full max-w-sm bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-    <form onSubmit={handleRegister} class="space-y-6" action="#">
-        <h5 class="text-xl font-medium text-gray-900 dark:text-white">Sign up to Genius Car</h5>
+<div className="mx-auto my-10 p-4 w-full max-w-sm bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+    <form onSubmit={handleRegister} className="space-y-6" action="#">
+        <h5 className="text-xl font-medium text-gray-900 dark:text-white">Sign up to Genius Car</h5>
         <div>
-            <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your name</label>
-            <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Md Ansarul Islam" required=""/>
+            <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your name</label>
+            <input onChange={handleUserName} type="text" name="name" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Md Ansarul Islam" required/>
         </div>
+        <p className='text-red-800'>{userError.name && userError.name}</p>
         <div>
-            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your email</label>
-            <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="name@company.com" required=""/>
+            <label htmlFor="image" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your Image URL</label>
+            <input onChange={handleUserImage} type="text" name="image" id="image" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Md Ansarul Islam" required/>
         </div>
+        <p className='text-red-900'>{userError.pictureURL && userError.pictureURL}</p>
         <div>
-            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your password</label>
-            <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required=""/>
+            <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your email</label>
+            <input onChange={handleUserEmail} type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="name@company.com" required/>
         </div>
-        <div class="flex items-start">
-            <div class="flex items-start">
-                <div class="flex items-center h-5">
-                    <input id="remember" type="checkbox" value="" class="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" />
-                </div>
-                <label for="remember" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember me</label>
-            </div>
-            <a href="/" class="ml-auto text-sm text-blue-700 hover:underline dark:text-blue-500">Lost Password?</a>
+           <p className='text-red-800'>{userError.email && userError.email}</p>
+        <div>
+            <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your password</label>
+            <input  onChange={handleUserPassword} type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required/>
         </div>
-        <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Register account</button>
-        <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
-            already account  <Link to="/login" class="text-blue-700 hover:underline dark:text-blue-500">login</Link>
+        <p className='text-red-700'>{userError.password && userError.password}</p>
+        <div className="flex items-start">
+          
+            <a href="/" className="ml-auto text-sm text-blue-700 hover:underline dark:text-blue-500">Lost Password?</a>
+        </div>
+        <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Register account</button>
+        <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
+            already account  <Link to="/login" className="text-blue-700 hover:underline dark:text-blue-500">login</Link>
         </div>
     </form>
 </div>

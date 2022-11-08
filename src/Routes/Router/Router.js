@@ -4,6 +4,7 @@ import AllServices from "../../Pages/AllServices/AllServices";
 import Home from "../../Pages/Home/Home/Home";
 import LogIn from "../../Pages/Login/LogIn";
 import Register from "../../Pages/Register/Register";
+import ReviewUser from "../../Pages/ReviewUser/ReviewUser";
 import ServiceDetails from "../../Pages/ServiceDetails/ServiceDetails";
 
 
@@ -38,7 +39,10 @@ const router = createBrowserRouter([
                 path:'/service/:id',
                 element:<ServiceDetails></ServiceDetails>
             },
-
+            {
+                path:'/review',
+                element:<ReviewUser></ReviewUser>
+            }
           
         ]
     },
