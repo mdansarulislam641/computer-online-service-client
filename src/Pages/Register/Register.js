@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 
 const Register = () => {
-    const {loading,userRegister,UpdateUserProfile} = useContext(AuthContext)
+    const {loading,userRegister,UpdateUserProfile,googleSignIn} = useContext(AuthContext)
     const [userInfo , setUserInfo] = useState({
         name:"",
         pictureURL:"",
@@ -21,6 +21,14 @@ const Register = () => {
     if(loading){
         return <div>Loading.........</div>
     }
+
+    const handleGoogleSign = () =>{
+        googleSignIn()
+        .then(result=>{
+            toast.success(`Successfully login ${result.user.displayName}`)
+        })
+    }
+
     const handleRegister = event =>{
         event.preventDefault()
         userRegister(userInfo.email,userInfo.password)
