@@ -36,7 +36,8 @@ const Header = () => {
       </li>
    
   {
-      user?.email ? <> <li className='text-xl'><Link to='/addservice'>Add Service</Link></li>
+      user?.email ? <> <li className='text-xl'><Link to='/reviews'>My Reviews</Link></li>
+      <li className='text-xl'><Link to='/addservice'>Add Service</Link></li>
        <li>
      { user?.displayName && <p className='text-xl'>{user.displayName}</p>}
      </li>

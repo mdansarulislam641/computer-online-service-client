@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 import './Details.css';
 const ServiceDetails = () => {
+    const {user} = useContext(AuthContext)
     const {id} = useParams();
     const [details, setDetails] = useState({})
     const {img, name, price, description} = details ;
@@ -12,13 +14,23 @@ const ServiceDetails = () => {
     },[id])
     console.log(details)
 
+    const handleReview = event =>{
+        event.preventDefault()
+        const name = event.target.name.value;
+        const rating = event.target.rating.value ;
+        const message = event.target.yourMessage.value ;
+        console.log(name,rating,message)
+
+    }
 
     return (
-      <div className='bg-black py-10 '>
+      <div className=' py-10 '>
         <div className='text-center lg:text-5xl md:text-3xl text-2xl font-extrabold font-mono text-white my-5 mx-2'>
             <h4>WellCome {name} Details Page</h4>
         </div>
-         <div className='details-container bg-base-200  max-w-[1300px] mx-auto'>
+         <div className='max-w-[1300px] mx-auto'>
+         <section>
+         <div className='details-container bg-base-200 w-full mx-auto'>
             <div className='w-full'>
                 <img className='w-full h-full object-fill' src={img} alt="" />
             </div>
@@ -32,6 +44,28 @@ const ServiceDetails = () => {
                     </Link>
                 </div>
             </div>
+         </div>
+         </section>
+         {/* review section */}
+         <section>
+            <h1>Review This Service</h1>
+            <div>
+                <form onSubmit={handleReview}>
+                    <div>
+                   <input type="text" name='name' placeholder='Your Name' id="" required />
+                    </div>
+                    <div>
+                    <input type="text" name='rating' placeholder='Your Ratings' id="" />
+                    </div>
+                    <div>
+                    <textarea name="yourMessage" id="" cols="30" rows="5" required></textarea>
+                    </div>
+                    <div>
+                        <button className="btn btn-primary" type='submit'>Submit Review</button>
+                    </div>
+                </form>
+            </div>
+         </section>
          </div>
       </div>
     );
