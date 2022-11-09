@@ -38,8 +38,7 @@ const ReviewUser = () => {
   <table className="table w-full">
   
     <thead>
-      <tr className='text-center'>
-        
+      <tr >
         <th>Name</th>
         <th>service name</th>
         <th>User Comments</th>
