@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 
 
@@ -33,20 +35,16 @@ const ServiceDetails = () => {
         const message = event.target.yourMessage.value ;
         const userReview = {
             name:userName,
-            email:user?.email || "not a email",
+            email:user?.email,
             image:user?.photoURL,
             service_id:_id,
             rating,
             message,
             service_title:name
         }
-
-
         if(!user){
             return navigate('/unknownUser')
-        
         }
-
       else{
         fetch('http://localhost:5000/review',{
             method:"POST",
@@ -56,7 +54,13 @@ const ServiceDetails = () => {
             body:JSON.stringify(userReview)
         })
         .then(res=>res.json())
-        .then(data=>console.log(data))
+        .then(data=>{
+            if(data.acknowledged){
+                toast.success("successfully added review")
+                event.target.reset()
+            }
+            
+        })
       }
 
     }
@@ -82,53 +86,26 @@ const ServiceDetails = () => {
 
         <section className='bg-gray-400'>
             <div className='mt-32'>
-                <h2 className='text-4xl text-center font-extrabold font-mono pt-5 text-white'>All User Reviews This Service</h2>
+                <h2 className='text-4xl text-center font-extrabold font-mono pt-5 text-white'>Users Reviews {name}</h2>
             </div>
-        <div className="overflow-x-auto max-w-[1300px] mx-auto my-10">
-  <table className="table w-full">
-  
-    <thead>
-      <tr className='text-center'>
-        
-        <th>Name</th>
-        <th>User Comments</th>
-        <th>Ratings</th>
-      
-      </tr>
-    </thead>
-        <tbody className='text-center'>
+
+       <div>
+       { reviews ?  <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 mx-5 rounded-lg shadow-md shadow-white'>
                 {
-                    reviews?.map(review=> { 
-                        return (
-                            <tr key={review._id}>
-                            <td>
-                              <div className="flex items-center space-x-3">
-                                <div className="avatar">
-                                  <div className="mask mask-squircle w-12 h-12">
-                                    <img src={review.image} alt="Avatar Tailwind CSS Component" />
-                                  </div>
-                                </div>
-                                <div>
-                                  <div className="font-bold">{review.name}</div>
-                                  <div className="text-sm opacity-50">{review.email}</div>
-                                </div>
-                              </div>
-                            </td>
-                           
-                            <td>
-                             {review.message}
-                            </td>
-                            <td>{review.rating}</td>
-                          
-                            
-                          </tr>
-                        )
-                    })
+                    reviews.map(review=><div key={review._id} className='rounded-lg border-2 py-5 bg-gray-700 text-white my-5 shadow-md shadow-white'> 
+                        <div className='text-center'>
+                            <img className='w-[50px] rounded-full mx-auto' src={review.image} alt="" />
+                            <p>Name: {review.name}</p>
+                            <h2>Email: {review.email}</h2>
+                            <p className=''><span className='font-bold'>Comment</span>: {review.message}</p>
+                            <h3>Rating: {review?.rating}</h3>
+                        </div>
+
+                    </div>)
                 }
-        </tbody>
-  
-  </table>
-</div>
+            </div> : <p>No Review Yet</p> }
+       </div>
+      
         </section>
 
 
