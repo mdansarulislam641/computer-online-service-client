@@ -5,7 +5,7 @@ import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 const ServiceCart = ({service}) => {
   const {loading} = useContext(AuthContext)
   if(loading){
-    return <>Loading........</>
+    return <>Loading....</>
   }
     const {_id,name,img, price, description} = service ;
     return (

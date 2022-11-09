@@ -1,16 +1,10 @@
 import React from 'react';
+import toast from 'react-hot-toast';
 
-const ReviewList = ({review}) => {
-    const handleDeleteReview = () =>{
-        fetch('http://localhost:5000/review',{
-            method:"DELETE",
-        })
-        .then(res=>res.json())
-        .then(data=>console.log(data))
-    }
-
-    console.log(review)
-    const {name, image,service_title, message, rating, email} = review ;
+const ReviewList = ({review,handleDeleteReview}) => {
+ 
+    // console.log(review)
+    const {name,_id, image,service_title, message, rating, email} = review ;
     return (
         <tr>
         <td>
@@ -35,7 +29,7 @@ const ReviewList = ({review}) => {
         <td>{rating}</td>
         <th>
            <button className='border-2 px-5 bg-gray-500 text-white rounded-lg mr-2'> Edit</button>
-            <button onClick={handleDeleteReview} className='border-2 px-2 bg-gray-500 text-white rounded-lg'>Delete</button>
+            <button onClick={()=>handleDeleteReview(_id)} className='border-2 px-2 bg-gray-500 text-white rounded-lg'>Delete</button>
         </th>
         
       </tr>
