@@ -67,7 +67,7 @@ const ServiceDetails = () => {
 
     return (
       <div className=' py-10 bg-gray-500'>
-        <div className='text-center lg:text-5xl md:text-3xl  text-2xl font-extrabold font-mono text-white my-5 mx-2'>
+        <div className='text-center lg:text-5xl md:text-3xl  text-xl font-extrabold font-mono text-white my-5 mx-2'>
             <h4>WellCome {name} Details Page</h4>
         </div>
          <div className='max-w-[1300px] mx-auto'>
@@ -86,11 +86,11 @@ const ServiceDetails = () => {
 
         <section className='bg-gray-400'>
             <div className='mt-32'>
-                <h2 className='text-4xl text-center font-extrabold font-mono pt-5 text-white'>Users Reviews {name}</h2>
+                <h2 className='lg:text-4xl text-xl md:2xl text-center font-extrabold font-mono pt-5 text-white'>Users Reviews {name}</h2>
             </div>
 
        <div>
-       { reviews ?  <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 mx-5 rounded-lg shadow-md shadow-white'>
+       { reviews.length === 0 ? <p>No Review Yet</p>: <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 mx-5 rounded-lg shadow-md shadow-white'>
                 {
                     reviews.map(review=><div key={review._id} className='rounded-lg border-2 py-5 bg-gray-700 text-white my-5 shadow-md shadow-white'> 
                         <div className='text-center'>
@@ -103,7 +103,7 @@ const ServiceDetails = () => {
 
                     </div>)
                 }
-            </div> : <p>No Review Yet</p> }
+            </div>}
        </div>
       
         </section>

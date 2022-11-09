@@ -1,16 +1,23 @@
 import React, { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 import ReviewList from './ReviewList';
 
 const ReviewUser = () => {
     const {user} = useContext(AuthContext)
     const [reviews, setReviews] = useState([])
+    const navigate = useNavigate();
     useEffect(()=>{
         fetch(`http://localhost:5000/reviews?email=${user?.email}`)
         .then(res=>res.json())
         .then(data=>setReviews(data))
     },[user?.email])
+
+    // update user review 
+    const handleUpdateReview = id =>{
+        navigate(`/updateReview/${id}`)
+    }
 
 
     const handleDeleteReview = (id) =>{
@@ -52,6 +59,7 @@ const ReviewUser = () => {
                     reviews?.map(review=><ReviewList
                         key={review._id}
                         review={review}
+                        handleUpdateReview={handleUpdateReview}
                         handleDeleteReview={handleDeleteReview}
                     ></ReviewList>)
                 }
