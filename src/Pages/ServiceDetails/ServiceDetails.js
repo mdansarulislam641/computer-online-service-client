@@ -1,24 +1,48 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 import './Details.css';
 const ServiceDetails = () => {
     const {user} = useContext(AuthContext)
     const {id} = useParams();
     const [details, setDetails] = useState({})
-    const {img, name, price, description} = details ;
+    const {img, name, price, description ,_id} = details ;
     useEffect(()=>{
         fetch(`http://localhost:5000/service/${id}`)
         .then(res=>res.json())
         .then(data=>setDetails(data))
     },[id])
-
+    const navigate = useNavigate();
     const handleReview = event =>{
         event.preventDefault()
-        const name = event.target.name.value;
+        const userName = event.target.name.value;
         const rating = event.target.rating.value ;
         const message = event.target.yourMessage.value ;
-        console.log(name,rating,message)
+        const userReview = {
+            name:userName,
+            email:user?.email || "not a email",
+            image:user?.photoURL,
+            service_id:_id,
+            rating,
+            message,
+            service_title:name
+        }
+        if(!user){
+            return navigate('/unknownUser')
+            
+        }
+
+      else{
+        fetch('http://localhost:5000/review',{
+            method:"POST",
+            headers:{
+                "Content-type":"application/json"
+            },
+            body:JSON.stringify(userReview)
+        })
+        .then(res=>res.json())
+        .then(data=>console.log(data))
+      }
 
     }
 

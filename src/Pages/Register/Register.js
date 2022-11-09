@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
-import { FaBeer, FaGoogle } from 'react-icons/fa';
+import { FaGoogle } from 'react-icons/fa';
 const Register = () => {
     const {loading,userRegister,UpdateUserProfile,googleSignIn} = useContext(AuthContext)
     const [userInfo , setUserInfo] = useState({
@@ -122,25 +122,25 @@ const updateProfile = (name,photo) =>{
     return (
        
 <div className="mx-auto my-10 p-4 w-full max-w-sm bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-    <form onSubmit={handleRegister} className="space-y-6" action="#">
+    <form onSubmit={handleRegister} className="space-y-3" action="#">
         <h5 className="text-xl font-medium text-gray-900 dark:text-white">Sign up to Genius Car</h5>
         <div>
-            <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your name</label>
+            <label htmlFor="name" className="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300">Your name</label>
             <input onChange={handleUserName} type="text" name="name" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Md Ansarul Islam" required/>
         </div>
         <p className='text-red-800'>{userError.name && userError.name}</p>
         <div>
-            <label htmlFor="image" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your Image URL</label>
-            <input onChange={handleUserImage} type="text" name="image" id="image" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Md Ansarul Islam" required/>
+            <label htmlFor="image" className="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300">Your Image URL</label>
+            <input onChange={handleUserImage} type="text" name="image" id="image" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="profile.jpg" required/>
         </div>
         <p className='text-red-900'>{userError.pictureURL && userError.pictureURL}</p>
         <div>
-            <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your email</label>
+            <label htmlFor="email" className="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300">Your email</label>
             <input onChange={handleUserEmail} type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="name@company.com" required/>
         </div>
            <p className='text-red-800'>{userError.email && userError.email}</p>
         <div>
-            <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Your password</label>
+            <label htmlFor="password" className="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300">Your password</label>
             <input  onChange={handleUserPassword} type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required/>
         </div>
         <p className='text-red-700'>{userError.password && userError.password}</p>
@@ -149,8 +149,8 @@ const updateProfile = (name,photo) =>{
             Already account  <Link to="/login" className="text-blue-700 hover:underline dark:text-blue-500">login</Link>
         </div>
     </form>
-        <div className='text-center'>
-            <button onClick={handleGoogleSign} className='text-5xl text-blue-600'><FaGoogle></FaGoogle> </button>
+        <div className='text-center mt-5'>
+            <button onClick={handleGoogleSign} className='text-3xl text-blue-600'><FaGoogle></FaGoogle> </button>
         </div>
 </div>
 

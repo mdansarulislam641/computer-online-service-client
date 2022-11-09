@@ -7,6 +7,7 @@ import LogIn from "../../Pages/Login/LogIn";
 import Register from "../../Pages/Register/Register";
 import ReviewUser from "../../Pages/ReviewUser/ReviewUser";
 import ServiceDetails from "../../Pages/ServiceDetails/ServiceDetails";
+import UnknownUser from "../../Pages/UnknownUser/UnknownUser";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
             {
                 path:'/review',
                 element:<ReviewUser></ReviewUser>
+            },
+            {
+                path:'/unknownUser',
+                element:<UnknownUser></UnknownUser>
             }
           
         ]
