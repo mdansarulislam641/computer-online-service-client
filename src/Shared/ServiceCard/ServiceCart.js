@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 
 const ServiceCart = ({service}) => {
+  const {loading} = useContext(AuthContext)
+  if(loading){
+    return <>Loading........</>
+  }
     const {_id,name,img, price, description} = service ;
     return (
         <div className="card my-5 card-compact w-50 mx-5 bg-base-100 shadow-xl">

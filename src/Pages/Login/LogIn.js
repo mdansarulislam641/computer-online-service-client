@@ -22,7 +22,8 @@ const LogIn = () => {
     const handleGoogleSignIn = () =>{
         googleSignIn()
         .then(result=>{
-            toast.success(`successfully login ${result?.user?.displayName}`)
+            toast.success(`successfully login ${result?.user?.displayName}`);
+            navigate(from,{replace:true})
         })
         .catch(e=>{
             toast.error(e.message)

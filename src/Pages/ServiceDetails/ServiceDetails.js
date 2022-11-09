@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
+
+
 import './Details.css';
 const ServiceDetails = () => {
     const {user} = useContext(AuthContext)
@@ -13,6 +15,17 @@ const ServiceDetails = () => {
         .then(data=>setDetails(data))
     },[id])
     const navigate = useNavigate();
+    console.log(details)
+    // review all user 
+    const [reviews, setReviews] = useState([])
+    useEffect(()=>{
+        fetch(`http://localhost:5000/review/${_id}`)
+        .then(res=>res.json())
+        .then(data=>setReviews(data))
+    },[_id])
+
+
+
     const handleReview = event =>{
         event.preventDefault()
         const userName = event.target.name.value;
@@ -27,9 +40,11 @@ const ServiceDetails = () => {
             message,
             service_title:name
         }
+
+
         if(!user){
             return navigate('/unknownUser')
-            
+        
         }
 
       else{
@@ -61,14 +76,65 @@ const ServiceDetails = () => {
                 <h2 className='lg:text-4xl md:text-3xl text-2xl font-extrabold font-mono'>{name}</h2>
                 <h3 className='text-2xl font-bold'>Service Fee: {price}</h3>
                 <p className='text-xl py-4'>{description}</p>
-                <div>
-                    <Link to='/review'>
-                        <button className='btn btn-primary'>Review This Service</button>
-                    </Link>
-                </div>
             </div>
          </div>
          </section>
+
+        <section className='bg-gray-400'>
+            <div className='mt-32'>
+                <h2 className='text-4xl text-center font-extrabold font-mono pt-5 text-white'>All User Reviews This Service</h2>
+            </div>
+        <div className="overflow-x-auto max-w-[1300px] mx-auto my-10">
+  <table className="table w-full">
+  
+    <thead>
+      <tr className='text-center'>
+        
+        <th>Name</th>
+        <th>User Comments</th>
+        <th>Ratings</th>
+      
+      </tr>
+    </thead>
+        <tbody className='text-center'>
+                {
+                    reviews?.map(review=> { 
+                        return (
+                            <tr key={review._id}>
+                            <td>
+                              <div className="flex items-center space-x-3">
+                                <div className="avatar">
+                                  <div className="mask mask-squircle w-12 h-12">
+                                    <img src={review.image} alt="Avatar Tailwind CSS Component" />
+                                  </div>
+                                </div>
+                                <div>
+                                  <div className="font-bold">{review.name}</div>
+                                  <div className="text-sm opacity-50">{review.email}</div>
+                                </div>
+                              </div>
+                            </td>
+                           
+                            <td>
+                             {review.message}
+                            </td>
+                            <td>{review.rating}</td>
+                          
+                            
+                          </tr>
+                        )
+                    })
+                }
+        </tbody>
+  
+  </table>
+</div>
+        </section>
+
+
+
+
+
          {/* review section */}
          <section className='my-24'>
             <h1 className='text-center text-white font-extrabold font-mono lg:text-4xl text-2xl'>Review This Service</h1>
