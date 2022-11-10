@@ -34,7 +34,7 @@ const Register = () => {
             const currentUser = {
                 email:user.email
             }
-            // console.log(currentUser)
+        
             fetch('https://assignment-server-omega.vercel.app/jwt',{
                 method:"POST",
                 headers:{
