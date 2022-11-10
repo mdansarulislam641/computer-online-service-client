@@ -5,14 +5,27 @@ import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 import ReviewList from './ReviewList';
 
 const ReviewUser = () => {
-    const {user} = useContext(AuthContext)
+    const {user,signOutUser} = useContext(AuthContext)
     const [reviews, setReviews] = useState([])
     const navigate = useNavigate();
     useEffect(()=>{
-        fetch(`https://assignment-server-omega.vercel.app/reviews?email=${user?.email}`)
-        .then(res=>res.json())
-        .then(data=>setReviews(data))
-    },[user?.email])
+     
+        fetch(`https://assignment-server-omega.vercel.app/reviews?email=${user?.email}`,{
+            headers:{
+                authorization:`Bearer ${JSON.parse(localStorage.getItem('online-service'))}`
+            }
+        })
+        .then(res=>{
+            if(res.status === 401 || res.status ===403){
+               return signOutUser();
+            }
+            return res.json()
+        })
+        .then(data=>{
+            console.log(data)
+            setReviews(data)
+        })
+    },[user?.email,signOutUser])
 
     // update user review 
     const handleUpdateReview = id =>{

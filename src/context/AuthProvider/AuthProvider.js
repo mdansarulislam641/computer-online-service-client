@@ -27,6 +27,7 @@ const googleProvider = new GoogleAuthProvider()
     // sign out user
     const signOutUser =()=>{
         setLoading(true)
+        localStorage.removeItem('online-service')
         return signOut(auth)
     }
 

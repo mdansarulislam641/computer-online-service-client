@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
-import { FaGoogle } from 'react-icons/fa';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
+import GoogleSignIn from '../../Shared/GoogleSignIn/GoogleSignIn';
 
 const LogIn = () => {
-    const {logInUser,googleSignIn} = useContext(AuthContext)
+    const {logInUser} = useContext(AuthContext)
     const location = useLocation()
     const navigate = useNavigate()
     const from = location.state?.from?.pathname || '/';
@@ -18,22 +18,30 @@ const LogIn = () => {
 
     }
 
-    // google sign in user 
-    const handleGoogleSignIn = () =>{
-        googleSignIn()
-        .then(result=>{
-            toast.success(`successfully login ${result?.user?.displayName}`);
-            navigate(from,{replace:true})
-        })
-        .catch(e=>{
-            toast.error(e.message)
-        })
-    }
+  
 
     const handleUserLogIn = (email,password) =>{
         logInUser(email,password)
         .then(result=>{
-            console.log(result)
+            
+            const user = result.user ;
+            const currentUser = {
+                email:user.email
+            }
+            // console.log(currentUser)
+            fetch('https://assignment-server-omega.vercel.app/jwt',{
+                method:"POST",
+                headers:{
+                    "content-type":"application/json"
+                },
+                body:JSON.stringify(currentUser)
+            })
+            .then(res=>res.json())
+            .then(data=>{
+                const token = data.token ;
+                localStorage.setItem('online-service',JSON.stringify(token))
+            })
+            toast.success(`successfully login ${result?.user?.displayName}`);
             navigate(from, {replace:true})
             // console.log(location)
         })
@@ -62,7 +70,7 @@ const LogIn = () => {
             </div>
         </form>
         <div className='text-center mt-5'>
-            <button onClick={handleGoogleSignIn} className='text-3xl text-blue-600'><FaGoogle></FaGoogle></button>
+            <GoogleSignIn></GoogleSignIn>
         </div>
     </div>
     );

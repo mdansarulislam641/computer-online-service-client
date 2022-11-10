@@ -7,7 +7,7 @@ const Banner = () => {
             prev:4,
             next:2,
             title:"We Provide Fasted Online Service at Home",
-            img:"https://i.ibb.co/PWJMg5d/pexels-photo-845451.jpg",
+            img:"https://i.ibb.co/cThF3mT/pexels-photo-777001.webp",
         },
         {
             banner_id:2,

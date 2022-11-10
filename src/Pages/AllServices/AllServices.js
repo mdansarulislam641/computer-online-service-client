@@ -11,7 +11,6 @@ const AllServices = () => {
     return (
        <div className='my-10 max-w-[1300px] mx-auto'>
         <div className='text-center m-10'>
-            <h2 className='lg:text-5xl md:text-3xl text-2xl font-extrabold font-mono'>Our All Service</h2>
         </div>
          <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1'>
         {

@@ -2,9 +2,9 @@ import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
-import { FaGoogle } from 'react-icons/fa';
+import GoogleSignIn from '../../Shared/GoogleSignIn/GoogleSignIn';
 const Register = () => {
-    const {loading,userRegister,UpdateUserProfile,googleSignIn} = useContext(AuthContext)
+    const {loading,userRegister,UpdateUserProfile} = useContext(AuthContext)
     const [userInfo , setUserInfo] = useState({
         name:"",
         pictureURL:"",
@@ -20,18 +20,6 @@ const Register = () => {
     const navigate = useNavigate()
     if(loading){
         return <div>Loading.........</div>
-    }
-
-    const handleGoogleSign = () =>{
-        googleSignIn()
-        .then(result=>{
-            toast.success(`Successfully login ${result.user.displayName}`)
-            console.log(result.user)
-            navigate('/');
-        })
-        .catch(e=>{
-            toast.error(e.message)
-        })
     }
 
     const handleRegister = event =>{
@@ -150,7 +138,7 @@ const updateProfile = (name,photo) =>{
         </div>
     </form>
         <div className='text-center mt-5'>
-            <button onClick={handleGoogleSign} className='text-3xl text-blue-600'><FaGoogle></FaGoogle> </button>
+           <GoogleSignIn></GoogleSignIn>
         </div>
 </div>
 
