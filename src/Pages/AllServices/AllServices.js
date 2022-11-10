@@ -4,7 +4,7 @@ import ServiceCart from '../../Shared/ServiceCard/ServiceCart';
 const AllServices = () => {
     const [services, setServices] = useState([])
     useEffect(()=>{
-        fetch('http://localhost:5000/services/allServices')
+        fetch('https://assignment-server-omega.vercel.app/services/allServices')
         .then(res=>res.json())
         .then(data=>setServices(data))
     },[])

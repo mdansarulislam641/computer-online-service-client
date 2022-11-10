@@ -9,7 +9,7 @@ const ReviewUser = () => {
     const [reviews, setReviews] = useState([])
     const navigate = useNavigate();
     useEffect(()=>{
-        fetch(`http://localhost:5000/reviews?email=${user?.email}`)
+        fetch(`https://assignment-server-omega.vercel.app/reviews?email=${user?.email}`)
         .then(res=>res.json())
         .then(data=>setReviews(data))
     },[user?.email])
@@ -24,7 +24,7 @@ const ReviewUser = () => {
         const proceed = window.confirm("are you sure delete this review")
         if(proceed)
         {
-            fetch(`http://localhost:5000/review/${id}`,{
+            fetch(`https://assignment-server-omega.vercel.app/review/${id}`,{
                 method:"DELETE",
             })
             .then(res=>res.json())
@@ -41,7 +41,7 @@ const ReviewUser = () => {
     }
 
     return (
-<div className="overflow-x-auto max-w-[1300px] mx-auto my-20">
+<div className="overflow-x-auto max-w-[1300px] mx-auto my-20 min-h-[100vh]">
   <table className="table w-full">
   
     <thead>

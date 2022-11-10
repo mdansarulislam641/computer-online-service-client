@@ -10,6 +10,7 @@ import ReviewUser from "../../Pages/ReviewUser/ReviewUser";
 import UpdateReview from "../../Pages/ReviewUser/UpdateReview";
 import ServiceDetails from "../../Pages/ServiceDetails/ServiceDetails";
 import UnknownUser from "../../Pages/UnknownUser/UnknownUser";
+import UserReview from "../../Pages/UserReview/UserReview";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
             {
                 path:'/unknownUser',
                 element:<UnknownUser></UnknownUser>
+            },
+            {
+                path:'/userReview/:id',
+                element:<UserReview></UserReview>
             },
             {
                 path:'/updateReview/:id',

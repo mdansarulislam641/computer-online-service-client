@@ -1,70 +1,44 @@
 import React, { useContext, useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import {  useNavigate, useParams } from 'react-router-dom';
+
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 
 
 import './Details.css';
 const ServiceDetails = () => {
-    const {user} = useContext(AuthContext)
+    const {user,loading} = useContext(AuthContext)
     const {id} = useParams();
     const [details, setDetails] = useState({})
     const {img, name, price, description ,_id} = details ;
+  
     useEffect(()=>{
-        fetch(`http://localhost:5000/service/${id}`)
+        fetch(`https://assignment-server-omega.vercel.app/service/${id}`)
         .then(res=>res.json())
         .then(data=>setDetails(data))
     },[id])
+
     const navigate = useNavigate();
-    console.log(details)
     // review all user 
     const [reviews, setReviews] = useState([])
     useEffect(()=>{
-        fetch(`http://localhost:5000/review/${_id}`)
+        fetch(`https://assignment-server-omega.vercel.app/review/${_id}`)
         .then(res=>res.json())
         .then(data=>setReviews(data))
     },[_id])
-
-
-
-    const handleReview = event =>{
-        event.preventDefault()
-        const userName = event.target.name.value;
-        const rating = event.target.rating.value ;
-        const message = event.target.yourMessage.value ;
-        const userReview = {
-            name:userName,
-            email:user?.email,
-            image:user?.photoURL,
-            service_id:_id,
-            rating,
-            message,
-            service_title:name
-        }
+    
+    if(loading){
+        return <div>Loading......</div>
+    }
+    const handleUserReview =(id)=>{
         if(!user){
             return navigate('/unknownUser')
         }
-      else{
-        fetch('http://localhost:5000/review',{
-            method:"POST",
-            headers:{
-                "Content-type":"application/json"
-            },
-            body:JSON.stringify(userReview)
-        })
-        .then(res=>res.json())
-        .then(data=>{
-            if(data.acknowledged){
-                toast.success("successfully added review")
-                event.target.reset()
-            }
-            
-        })
-      }
-
+        else{
+            return navigate(`/userReview/${id}`)
+        }
     }
 
+  
     return (
       <div className=' py-10 bg-gray-500'>
         <div className='text-center lg:text-5xl md:text-3xl  text-xl font-extrabold font-mono text-white my-5 mx-2'>
@@ -74,7 +48,7 @@ const ServiceDetails = () => {
          <section>
          <div className='details-container bg-base-200 w-full mx-auto'>
             <div className='w-full'>
-                <img className='w-full h-full object-fill' src={img} alt="" />
+                <img className='w-full h-full  object-fill' src={img} alt="" />
             </div>
             <div className='py-10 px-5 flex flex-col justify-center'>
                 <h2 className='lg:text-4xl md:text-3xl text-2xl font-extrabold font-mono'>{name}</h2>
@@ -85,12 +59,15 @@ const ServiceDetails = () => {
          </section>
 
         <section className='bg-gray-400'>
-            <div className='mt-32'>
+            <div className='pt-10 md:mx-auto'>
+                <h2 onClick={()=>handleUserReview(_id)} className='lg:text-3xl text-2xl ml-9 lg:ml-5 btn btn-primary'>Review this service</h2>
+            </div>
+            <div className='mt-10'>
                 <h2 className='lg:text-4xl text-xl md:2xl text-center font-extrabold font-mono pt-5 text-white'>Users Reviews {name}</h2>
             </div>
 
        <div>
-       { reviews.length === 0 ? <p>No Review Yet</p>: <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 mx-5 rounded-lg shadow-md shadow-white'>
+       { reviews.length === 0 ? <p className='text-center mt-5 text-4xl text-red-700 font-extrabold font-mono'>No Review Yet</p>: <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 mx-5 rounded-lg shadow-md shadow-white'>
                 {
                     reviews.map(review=><div key={review._id} className='rounded-lg border-2 py-5 bg-gray-700 text-white my-5 shadow-md shadow-white'> 
                         <div className='text-center'>
@@ -105,35 +82,7 @@ const ServiceDetails = () => {
                 }
             </div>}
        </div>
-      
         </section>
-
-
-
-
-
-         {/* review section */}
-         <section className='my-24'>
-            <h1 className='text-center text-white font-extrabold font-mono lg:text-4xl text-2xl'>Review This Service</h1>
-            <div className='text-center mx-5'>
-                <form onSubmit={handleReview}>
-                   <div className='lg:flex gap-5 items-center justify-center'>
-                   <div className='border-2  lg:w-1/2 w-full my-3  rounded-lg'>
-                   <input className='w-full py-2 bg-gray-200 text-2xl px-5' type="text" name='name' placeholder='Your Name' id="" required />
-                    </div>
-                    <div className='border-2 lg:w-1/2 w-full rounded-lg'>
-                    <input className='w-full py-2 bg-gray-200 text-2xl px-5' type="text" name='rating' placeholder='Your Ratings' id="" />
-                    </div>
-                   </div>
-                    <div className='my-2'>
-                    <textarea className='w-full my-2 py-2 text-red-900 bg-gray-200 text-2xl px-5 resize-none' name="yourMessage" placeholder='Your Message Here....' id="" cols="30" rows="5" required></textarea>
-                    </div>
-                    <div className='text-center my-5'>
-                        <button className="btn btn-primary px-10" type='submit'>Submit Review</button>
-                    </div>
-                </form>
-            </div>
-         </section>
          </div>
       </div>
     );

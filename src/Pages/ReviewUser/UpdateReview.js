@@ -9,7 +9,7 @@ const UpdateReview = () => {
     const [refresh, setRefresh] = useState(false)
     const navigate = useNavigate()
     useEffect(()=>{
-        fetch(`http://localhost:5000/reviewUpdate/${id}`)
+        fetch(`https://assignment-server-omega.vercel.app/reviewUpdate/${id}`)
         .then(res=>res.json())
         .then(data => setReview(data))
     },[id])
@@ -24,7 +24,7 @@ const UpdateReview = () => {
             rating
         }
         console.log(updateValue)
-        fetch(`http://localhost:5000/reviews/${id}`,{
+        fetch(`https://assignment-server-omega.vercel.app/reviews/${id}`,{
             method:"PATCH",
             headers:{
                 "content-type":"application/json"
