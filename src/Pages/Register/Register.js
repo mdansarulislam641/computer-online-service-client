@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 import useTitle from '../../hooks/useTitle';
 import GoogleSignIn from '../../Shared/GoogleSignIn/GoogleSignIn';
@@ -20,6 +20,8 @@ const Register = () => {
         password:""
     });
     const navigate = useNavigate()
+    const location = useLocation()
+    const from = location?.state?.from?.pathname || '/';
     if(loading){
         return <div>Loading.........</div>
     }
@@ -28,9 +30,26 @@ const Register = () => {
         event.preventDefault()
         userRegister(userInfo.email,userInfo.password)
         .then(result=>{
+            const user = result.user ;
+            const currentUser = {
+                email:user.email
+            }
+            // console.log(currentUser)
+            fetch('https://assignment-server-omega.vercel.app/jwt',{
+                method:"POST",
+                headers:{
+                    "content-type":"application/json"
+                },
+                body:JSON.stringify(currentUser)
+            })
+            .then(res=>res.json())
+            .then(data=>{
+                const token = data.token ;
+                localStorage.setItem('online-service',JSON.stringify(token))
+            })
             toast.success("added user name and picture")
             updateProfile(userInfo.name, userInfo.pictureURL)
-            navigate('/');
+            navigate(from,{replace:true});
         })
         .catch(error=>{
             toast.error(error.message)
