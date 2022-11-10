@@ -15,7 +15,7 @@ const ServiceCart = ({service}) => {
           <PhotoProvider>
 
         <PhotoView src={img}>
-        <img className='h-[250px] w-full' src={img} style={{ objectFit: 'cover' }} alt="" />
+        <img className='lg:h-[200px] h-[150px] object-fill w-full' src={img} style={{ objectFit: 'cover' }} alt="" />
         </PhotoView>
           </PhotoProvider>
          </figure>

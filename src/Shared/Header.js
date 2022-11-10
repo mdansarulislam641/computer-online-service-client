@@ -2,7 +2,8 @@ import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthProvider/AuthProvider';
-import { FaBars, FaCross, FaGoogle, FaTimes } from 'react-icons/fa';
+import { FaBars, FaTimes } from 'react-icons/fa';
+import logo from '../assests/servicelogo.jpg'
 const Header = () => {
   const {user,signOutUser} = useContext(AuthContext)
   const [toggle, setToggle] = useState(true)
@@ -21,6 +22,7 @@ console.log(toggle)
 <nav className="bg-red-300 sticky top-0 z-10 border-gray-200 px-2 sm:px-4 py-2.5 rounded ">
   <div className="container max-w-[1300px]  flex justify-between items-center mx-auto">
   <Link  to='/' className="flex items-center">
+    <img className='w-[100px] h-[50px] rounded-lg mr-2' src={logo} alt="" />
       <span className="self-center  font-extrabold font-mono whitespace-nowrap dark:text-white text-3xl">Online Service</span>
   </Link>
 
@@ -38,6 +40,7 @@ console.log(toggle)
       <li>
         <Link to='/services' className="block text-xl py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">services</Link>
       </li>
+      <li className='text-xl'><Link to='/blog'>Blog</Link></li>
    
   {
       user?.email ? <> <li className='text-xl'><Link to='/review'>My Reviews</Link></li>
@@ -70,10 +73,13 @@ console.log(toggle)
       <li>
         <Link to='/services' className="block text-xl py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">services</Link>
       </li>
+      <li className='text-xl'><Link to='/blog'>Blog</Link></li>
    
   {
       user?.email ? <> <li className='text-xl'><Link to='/review'>My Reviews</Link></li>
       <li className='text-xl'><Link to='/addservice'>Add Service</Link></li>
+     
+
        <li>
      { user?.displayName && <p className='text-xl'>{user.displayName}</p>}
      </li>
