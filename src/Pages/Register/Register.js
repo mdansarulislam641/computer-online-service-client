@@ -2,8 +2,10 @@ import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
+import useTitle from '../../hooks/useTitle';
 import GoogleSignIn from '../../Shared/GoogleSignIn/GoogleSignIn';
 const Register = () => {
+    useTitle('register')
     const {loading,userRegister,UpdateUserProfile} = useContext(AuthContext)
     const [userInfo , setUserInfo] = useState({
         name:"",

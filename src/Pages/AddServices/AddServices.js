@@ -1,7 +1,11 @@
 import React from 'react';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+import useTitle from '../../hooks/useTitle';
 
 const AddServices = () => {
+    useTitle('addservice')
+    const navigate = useNavigate()
     const handleSubmitService = (event)=>{
         event.preventDefault()
         const serviceTitle = event.target.serviceName.value ;
@@ -10,11 +14,12 @@ const AddServices = () => {
         const description = event.target.description.value ;
         const serviceInfo ={
             name:serviceTitle,
+            createdAt: new Date(),
             price,
             img:image,
             description
-        }
-
+            }
+         
         fetch(`https://assignment-server-omega.vercel.app/service/`,{
             method:"POST",
             headers:{
@@ -24,6 +29,8 @@ const AddServices = () => {
         })
         .then(result=>{
             toast.success("successfully added new service")
+            navigate('/services')
+            event.target.reset()
         })
         .catch(error=>{
             toast.error(error.message)

@@ -2,10 +2,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import {  useNavigate, useParams } from 'react-router-dom';
 
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
+import useTitle from '../../hooks/useTitle';
 
 
 import './Details.css';
 const ServiceDetails = () => {
+    useTitle('servicedetails')
     const {user,loading} = useContext(AuthContext)
     const {id} = useParams();
     const [details, setDetails] = useState({})
@@ -25,7 +27,7 @@ const ServiceDetails = () => {
         .then(res=>res.json())
         .then(data=>setReviews(data))
     },[_id])
-    
+
     if(loading){
         return <div>Loading......</div>
     }

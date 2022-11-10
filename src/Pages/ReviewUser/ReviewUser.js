@@ -2,9 +2,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
+import useTitle from '../../hooks/useTitle';
 import ReviewList from './ReviewList';
 
 const ReviewUser = () => {
+    useTitle('reviewuser')
     const {user,signOutUser} = useContext(AuthContext)
     const [reviews, setReviews] = useState([])
     const navigate = useNavigate();

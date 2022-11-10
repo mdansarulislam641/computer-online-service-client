@@ -2,9 +2,10 @@ import React, { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import {  useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
+import useTitle from '../../hooks/useTitle';
 
 const UserReview = () => {
-    
+    useTitle('reviewuser')
     const {id} = useParams()
 const {user,loading} = useContext(AuthContext)
 const [details, setDetails] = useState({})
@@ -33,6 +34,7 @@ if(loading){
             name:userName,
             email:user?.email,
             image:user?.photoURL,
+            created: new Date().toISOString(),
             service_id:_id,
             rating,
             message,
@@ -51,7 +53,7 @@ if(loading){
             if(data.acknowledged){
                 toast.success("successfully added review")
                 event.target.reset()
-                navigate('/review')
+                navigate(`/service/${id}`)
             }
             
         })

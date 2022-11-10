@@ -2,12 +2,14 @@ import { async } from '@firebase/util';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
+import useTitle from '../../hooks/useTitle';
 
 const UpdateReview = () => {
     const {id} = useParams();
     const [review, setReview] = useState({})
     const [refresh, setRefresh] = useState(false)
     const navigate = useNavigate()
+    useTitle('updatereview')
     useEffect(()=>{
         fetch(`https://assignment-server-omega.vercel.app/reviewUpdate/${id}`)
         .then(res=>res.json())
