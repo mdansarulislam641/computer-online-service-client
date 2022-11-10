@@ -13,7 +13,6 @@ const ServiceCart = ({service}) => {
         <div className="card my-5 card-compact w-50 mx-5 bg-base-100 shadow-xl">
         <figure>
           <PhotoProvider>
-
         <PhotoView src={img}>
         <img className='lg:h-[200px] h-[150px] object-fill w-full' src={img} style={{ objectFit: 'cover' }} alt="" />
         </PhotoView>
