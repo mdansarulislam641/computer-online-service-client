@@ -22,8 +22,8 @@ console.log(toggle)
 <nav className="bg-red-300 sticky top-0 z-10 border-gray-200 px-2 sm:px-4 py-2.5 rounded ">
   <div className="container max-w-[1300px]  flex justify-between items-center mx-auto">
   <Link  to='/' className="flex items-center">
-    <img className='w-[100px] h-[50px] rounded-lg mr-2' src={logo} alt="" />
-      <span className="self-center  font-extrabold font-mono whitespace-nowrap dark:text-white text-3xl">Online Service</span>
+    <img className='lg:w-[100px] md:w-[75px] w-[50px] h-[50px] rounded-lg mr-2' src={logo} alt="" />
+      <span className="self-center  font-extrabold font-mono whitespace-nowrap dark:text-white lg:text-3xl text-2xl">Online Service</span>
   </Link>
 
 <div>
