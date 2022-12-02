@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import useTitle from '../../../hooks/useTitle';
 import ServiceCart from '../../../Shared/ServiceCard/ServiceCart';
 
 const Services = () => {
+    useTitle('services')
     const [services, setServices] = useState([])
     useEffect(()=>{
         fetch('https://assignment-server-omega.vercel.app/service')
