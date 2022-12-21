@@ -1,10 +1,16 @@
 import React from 'react';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthProvider/AuthProvider';
+import Loading from '../../Shared/Loading';
 
 
 const ReviewList = ({review,handleUpdateReview,handleDeleteReview}) => {
- 
+  const {loading} = useContext(AuthContext)
     // console.log(review)
     const {name,_id, image,service_title, message, rating, email} = review ;
+    if(loading){
+        return <Loading></Loading>
+    }
     return (
         <tr>
         <td>
@@ -28,8 +34,8 @@ const ReviewList = ({review,handleUpdateReview,handleDeleteReview}) => {
         </td>
         <td>{rating}</td>
         <th>
-           <button onClick={()=>handleUpdateReview(_id)} className='border-2 px-5 bg-gray-500 text-white rounded-lg mr-2'> Edit</button>
-            <button onClick={()=>handleDeleteReview(_id)} className='border-2 px-2 bg-gray-500 text-white rounded-lg'>Delete</button>
+           <button onClick={()=>handleUpdateReview(_id)} className='border-2 px-5 bg-[#1C315E] text-white rounded-lg mr-2'> Edit</button>
+            <button onClick={()=>handleDeleteReview(_id)} className='border-2 px-2 bg-[#1C315E] text-white rounded-lg'>Delete</button>
         </th>
         
       </tr>

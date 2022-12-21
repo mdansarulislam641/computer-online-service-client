@@ -40,7 +40,7 @@ const AddServices = () => {
 
 
     return (
-        <div className=' py-20 bg-blue-400 text-center'>
+        <div className=' py-20 bg-gray-700 text-center'>
             <h2 className='lg:text-4xl text-2xl text-white font-extrabold font-mono py-3'>Add Your OWN Service Here</h2>
          <div>
          <form onSubmit={handleSubmitService} className='shadow-2xl'>

@@ -2,7 +2,7 @@ import React from 'react';
 
 const AboutUs = () => {
     return (
-      <div className='bg-gray-700 py-20 px-5'>
+      <div className='bg-[#1C315E] py-20 px-5'>
           <div className='grid lg:grid-cols-2 grid-cols-1 items-center max-w-[1300px] mx-auto gap-5 '>
             <div>
                 <h5 className='text-2xl text-blue-800 font-bold'>ABOUT US</h5>

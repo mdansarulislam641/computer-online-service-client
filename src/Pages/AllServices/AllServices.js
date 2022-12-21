@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import useTitle from '../../hooks/useTitle';
+import Loading from '../../Shared/Loading';
 import ServiceCart from '../../Shared/ServiceCard/ServiceCart';
 
 const AllServices = () => {
@@ -15,9 +16,7 @@ const AllServices = () => {
         })
     },[])
     if(loading){
-        <div className='flex items-center justify-center h-[100vh]'>
-            <button className='btn btn-primary mx-10'>loading.........</button>
-        </div>
+      return <Loading></Loading>
     }
     return (
        <div className='my-10 max-w-[1300px] mx-auto'>

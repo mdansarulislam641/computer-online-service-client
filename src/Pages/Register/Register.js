@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 import useTitle from '../../hooks/useTitle';
 import GoogleSignIn from '../../Shared/GoogleSignIn/GoogleSignIn';
+import Loading from '../../Shared/Loading';
 const Register = () => {
     useTitle('register')
     const {loading,userRegister,UpdateUserProfile} = useContext(AuthContext)
@@ -23,7 +24,7 @@ const Register = () => {
     const location = useLocation()
     const from = location?.state?.from?.pathname || '/';
     if(loading){
-        return <div>Loading.........</div>
+        return <Loading></Loading>
     }
 
     const handleRegister = event =>{

@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import {  useNavigate, useParams } from 'react-router-dom';
+import {  Link, useNavigate, useParams } from 'react-router-dom';
 
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 import useTitle from '../../hooks/useTitle';
+import Loading from '../../Shared/Loading';
+import UserReview from '../UserReview/UserReview';
 
 
 import './Details.css';
@@ -29,7 +31,7 @@ const ServiceDetails = () => {
     },[_id])
 
     if(loading){
-        return <div>Loading......</div>
+        return <Loading></Loading>
     }
     const handleUserReview =(id)=>{
         if(!user){
@@ -42,15 +44,15 @@ const ServiceDetails = () => {
 
   
     return (
-      <div className=' py-10 bg-gray-500'>
+      <div className=' py-10 '>
         <div className='text-center lg:text-5xl md:text-3xl  text-xl font-extrabold font-mono text-white my-5 mx-2'>
             <h4>WellCome {name} Details Page</h4>
         </div>
          <div className='max-w-[1300px] mx-auto'>
          <section>
-         <div className='details-container bg-base-200 w-full mx-auto'>
+         <div className='details-container shadow-lg rounded text-white  bg-gray-700 w-full mx-auto'>
             <div className='w-full'>
-                <img className='w-full h-full  object-fill' src={img} alt="" />
+                <img className='w-full h-full rounded object-fill' src={img} alt="" />
             </div>
             <div className='py-10 px-5 flex flex-col justify-center'>
                 <h2 className='lg:text-4xl md:text-3xl text-2xl font-extrabold font-mono'>{name}</h2>
@@ -60,16 +62,14 @@ const ServiceDetails = () => {
          </div>
          </section>
 
-        <section className='bg-gray-400'>
-            <div className='pt-10 md:mx-auto'>
-                <h2 onClick={()=>handleUserReview(_id)} className='lg:text-3xl text-2xl ml-9 lg:ml-5 btn btn-primary'>Review this service</h2>
-            </div>
+        <section className=''>
+           
             <div className='mt-10'>
                 <h2 className='lg:text-4xl text-xl md:2xl text-center font-extrabold font-mono pt-5 text-white'>Users Reviews {name}</h2>
             </div>
 
        <div>
-       { reviews.length === 0 ? <p className='text-center mt-5 text-4xl text-red-700 font-extrabold font-mono'>No Review Yet</p>: <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 mx-5 rounded-lg shadow-md shadow-white'>
+       { reviews.length === 0 ? <p className='text-center mt-5 text-4xl text-white- font-extrabold font-mono'>No Review Yet</p>: <div className='grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 mx-5 rounded-lg '>
                 {
                     reviews.map(review=><div key={review._id} className='rounded-lg border-2 py-5 bg-gray-700 text-white my-5 shadow-md shadow-white'> 
                         <div className='text-center'>
@@ -83,6 +83,13 @@ const ServiceDetails = () => {
                     </div>)
                 }
             </div>}
+       </div>
+       <div>
+        {
+            user && user.uid ? <UserReview></UserReview> : <p className='text-2xl bg-primary hover:bg-primary transition-all duration-500   mx-auto mt-10 rounded text-center text-white py-2 px-5 w-1/3 '>
+                <Link>Please Login First for Review</Link>
+            </p>
+        }
        </div>
         </section>
          </div>
